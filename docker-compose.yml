@@ -1,0 +1,42 @@
+version: '3'
+
+volumes:
+  postgres:
+    driver: local
+
+services:
+  
+  db:
+    image: postgres:10
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      POSTGRES_DB: Tododb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+
+  studyproject-identity:
+    image: identity
+    restart: always
+    build:
+      context: ./StudyProject.Identity.API
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - 5002:80
+
+
+  studyproject-todo-api:
+    image: todo
+    restart: always
+    build:
+      context: ./StudyProject.Todo.API
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - 5001:80
