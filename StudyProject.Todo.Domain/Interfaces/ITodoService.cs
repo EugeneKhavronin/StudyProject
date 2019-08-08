@@ -5,6 +5,9 @@ using StudyProject.Todo.Domain.Models;
 
 namespace StudyProject.Todo.Domain.Interfaces
 {
+    /// <summary>
+    /// Сервис по работе с задачами
+    /// </summary>
     public interface ITodoService
     {
         /// <summary>
@@ -30,10 +33,9 @@ namespace StudyProject.Todo.Domain.Interfaces
         /// <summary>
         /// Изменение задачи
         /// </summary>
-        /// <param name="guid">Уникальный идентификатор</param>
         /// <param name="todoItem">Модель задачи</param>
         /// <returns></returns>
-        Task<Guid> Update(Guid guid, TodoUpdateModel todoItem);
+        Task<Guid> Update(TodoUpdateModel todoItem);
 
         /// <summary>
         /// Удаление задачи

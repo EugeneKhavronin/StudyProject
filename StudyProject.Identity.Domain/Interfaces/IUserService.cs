@@ -7,7 +7,7 @@ namespace StudyProject.Identity.Domain.Interfaces
     /// <summary>
     /// Сервис по работе с пользователями
     /// </summary>
-    public interface IUserManagementService
+    public interface IUserService
     {
         /// <summary>
         /// Проверка существует ли пользователь
@@ -15,7 +15,7 @@ namespace StudyProject.Identity.Domain.Interfaces
         /// <param name="login">Логин пользователя</param>
         /// <param name="password">Пароль</param>
         /// <returns></returns>
-        Task<bool> ValidUser(string login, string password);
+        Task<bool> ValidateUser(string login, string password);
 
         /// <summary>
         /// Регистрация пользователя

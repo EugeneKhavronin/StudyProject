@@ -24,7 +24,7 @@ namespace StudyProject.Identity.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary/>
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<TokenManagement>(Configuration.GetSection("tokenManagement"));
@@ -51,11 +51,11 @@ namespace StudyProject.Identity.API
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"});
+                c.SwaggerDoc("v1", new Info {Title = "Identity API", Version = "v1"});
                 c.AddSecurityDefinition("Bearer", new ApiKeyScheme
                 {
                     In = "header",
-                    Description = "Please insert JWT with Bearer into field",
+                    Description = "Введите токен и Bearer в поле",
                     Name = "Authorization",
                     Type = "apiKey"
                 });
@@ -71,7 +71,7 @@ namespace StudyProject.Identity.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary/>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -80,7 +80,6 @@ namespace StudyProject.Identity.API
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

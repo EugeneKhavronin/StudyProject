@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudyProject.Todo.Database.Models
 {
+    /// <summary>
+    /// Модель задачи
+    /// </summary>
     public class TodoItem
     {
         /// <summary>

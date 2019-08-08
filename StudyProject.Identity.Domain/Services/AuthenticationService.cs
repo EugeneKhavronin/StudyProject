@@ -14,23 +14,21 @@ namespace StudyProject.Identity.Domain.Services
     /// <inheritdoc/>
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly IUserManagementService _userManagementService;
+        private readonly IUserService _userService;
         private readonly TokenManagement _tokenManagement;
 
         /// <summary/>
-        public AuthenticationService(IUserManagementService service, IOptions<TokenManagement> tokenManagement)
+        public AuthenticationService(IUserService service, IOptions<TokenManagement> tokenManagement)
         {
-            _userManagementService = service;
+            _userService = service;
             _tokenManagement = tokenManagement.Value;
         }
 
         /// <inheritdoc/>
         [HttpPost("/token")]
-        public string Authentication(LoginModel model)
+        public string Authenticate(LoginModel model)
         {
-            string token = string.Empty;
-
-            if (!_userManagementService.ValidUser(model.Login, model.Password).Result)
+            if (!_userService.ValidateUser(model.Login, model.Password).Result)
                 return null;
 
             var claim = new[]
@@ -49,9 +47,7 @@ namespace StudyProject.Identity.Domain.Services
                 signingCredentials: credentials
             );
 
-            token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
-
-            return token;
+            return new JwtSecurityTokenHandler().WriteToken(jwtToken);
         }
     }
 }

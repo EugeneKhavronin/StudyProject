@@ -10,11 +10,13 @@ using StudyProject.Todo.Domain.Models;
 
 namespace StudyProject.Todo.Domain.Services
 {
+    /// <inheritdoc />
     public class TodoService : ITodoService
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
 
+        /// <summary />
         public TodoService(DatabaseContext context, IMapper mapper)
         {
             _context = context;
@@ -31,7 +33,7 @@ namespace StudyProject.Todo.Domain.Services
         /// <inheritdoc />
         public async Task<TodoViewModel> Get(Guid todoGuid)
         {
-            var todoItem = await _context.TodoItems.FindAsync(todoGuid);
+            var todoItem = await _context.TodoItems.FirstOrDefaultAsync(a=>a.Guid==todoGuid);
             return _mapper.Map<TodoViewModel>(todoItem);
         }
 
@@ -45,9 +47,9 @@ namespace StudyProject.Todo.Domain.Services
         }
 
         /// <inheritdoc />
-        public async Task<Guid> Update(Guid todoGuid, TodoUpdateModel todoEditItem)
+        public async Task<Guid> Update(TodoUpdateModel todoEditItem)
         {
-            var todoItem = await _context.TodoItems.FindAsync(todoGuid);
+            var todoItem = await _context.TodoItems.FirstOrDefaultAsync(a=>a.Guid==todoEditItem.Guid);
             todoItem.Name = todoEditItem.Name;
             todoItem.IsComplete = todoEditItem.IsComplete;
             _context.TodoItems.Update(todoItem);
@@ -58,7 +60,7 @@ namespace StudyProject.Todo.Domain.Services
         /// <inheritdoc />
         public async Task Delete(Guid todoGuid)
         {
-            var todoItem = await _context.TodoItems.FindAsync(todoGuid);
+            var todoItem = await _context.TodoItems.FirstOrDefaultAsync(a=>a.Guid==todoGuid);
             _context.TodoItems.Remove(todoItem);
             await _context.SaveChangesAsync();
         }

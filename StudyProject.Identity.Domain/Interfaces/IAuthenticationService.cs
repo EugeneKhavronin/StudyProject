@@ -12,6 +12,6 @@ namespace StudyProject.Identity.Domain.Interfaces
         /// </summary>
         /// <param name="model">Модель авторизации</param>
         /// <returns></returns>
-        string Authentication(LoginModel model);
+        string Authenticate(LoginModel model);
     }
 }

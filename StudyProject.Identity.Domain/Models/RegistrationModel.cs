@@ -7,6 +7,11 @@ namespace StudyProject.Identity.Domain.Models
     /// </summary>
     public class RegistrationModel
     {
+        /// <summary />
+        public RegistrationModel()
+        {
+        }
+
         /// <summary>
         /// Логин
         /// </summary>

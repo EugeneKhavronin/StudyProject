@@ -8,13 +8,15 @@ using StudyProject.Todo.Domain.Models;
 
 namespace StudyProject.Todo.API.Controllers
 {
+    /// <summary>
+    /// Контролер задач
+    /// </summary>
     [Route("api/todo")]
     [Authorize]
     public class TodoController
     {
         private readonly ITodoService _todoService;
-
-
+        
         /// <summary/>
         public TodoController(ITodoService todoService)
         {
@@ -37,7 +39,7 @@ namespace StudyProject.Todo.API.Controllers
         /// <param name="guid">Уникальный идентификатор</param>
         /// <returns></returns>
         [HttpGet("{guid}")]
-        public async Task<TodoViewModel> GetTodoItem(Guid guid)
+        public async Task<TodoViewModel> GetTodoItem([FromRoute]Guid guid)
         {
             return await _todoService.Get(guid);
         }
@@ -48,7 +50,7 @@ namespace StudyProject.Todo.API.Controllers
         /// <param name="todoItem">Модель задачи</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<Guid> CreateTodoItem(TodoCreateModel todoItem)
+        public async Task<Guid> CreateTodoItem([FromBody]TodoCreateModel todoItem)
         {
             return await _todoService.Create(todoItem);
         }
@@ -56,23 +58,21 @@ namespace StudyProject.Todo.API.Controllers
         /// <summary>
         /// Изменение задачи
         /// </summary>
-        /// <param name="guid">Уникальный идентификатор</param>
         /// <param name="todoItem">Модель задачи</param>
         /// <returns></returns>
-        [HttpPut("{guid}")]
-        public async Task<Guid> PutTodoItem(Guid guid, TodoUpdateModel todoItem)
+        [HttpPut]
+        public async Task<Guid> PutTodoItem([FromBody]TodoUpdateModel todoItem)
         {
-            return await _todoService.Update(guid, todoItem);
+            return await _todoService.Update(todoItem);
         }
-
-
+        
         /// <summary>
         /// Удаление задачи
         /// </summary>
         /// <param name="guid">Уникальный идентификатор</param>
         /// <returns></returns>
         [HttpDelete("{guid}")]
-        public async Task DeleteTodoItem(Guid guid)
+        public async Task DeleteTodoItem([FromRoute]Guid guid)
         {
             await _todoService.Delete(guid);
         }

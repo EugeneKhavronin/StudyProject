@@ -12,12 +12,12 @@ namespace StudyProject.Identity.API.Controllers
     [ApiController]
     public class AuthenticationController : Controller
     {
-        private readonly IAuthenticationService _authenticateService;
+        private readonly IAuthenticationService _authenticationService;
 
         /// <summary/>
         public AuthenticationController(IAuthenticationService authService)
         {
-            _authenticateService = authService;
+            _authenticationService = authService;
         }
 
         /// <summary>
@@ -27,9 +27,9 @@ namespace StudyProject.Identity.API.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost, Route("Authentication")]
-        public IActionResult Authentication(LoginModel model)
+        public IActionResult Authenticate([FromBody] LoginModel model)
         {
-            var token = _authenticateService.Authentication(model);
+            var token = _authenticationService.Authenticate(model);
             return Ok(token);
         }
     }

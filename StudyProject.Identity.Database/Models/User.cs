@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudyProject.Identity.Database.Models
 {
+    /// <summary>
+    /// Класс пользователя
+    /// </summary>
     public class User
     {
         /// <summary>

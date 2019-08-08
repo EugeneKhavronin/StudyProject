@@ -2,8 +2,16 @@ using System;
 
 namespace StudyProject.Todo.Domain.Models
 {
+    /// <summary>
+    /// Модель просмотра задачи
+    /// </summary>
     public class TodoViewModel
     {
+        /// <summary />
+        public TodoViewModel()
+        {
+        }
+        
         /// <summary>
         /// Уникальный идентификатор
         /// </summary>

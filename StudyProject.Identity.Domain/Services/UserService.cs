@@ -10,31 +10,24 @@ using StudyProject.Identity.Domain.Models;
 namespace StudyProject.Identity.Domain.Services
 {
     /// <inheritdoc/>
-    public class UserManagementService : IUserManagementService
+    public class UserService : IUserService
     {
         private readonly DatabaseContext _context;
         private readonly IPasswordHasher<User> _passwordHasher = new PasswordHasher<User>();
 
         /// <summary/>
-        public UserManagementService(DatabaseContext databaseContext)
+        public UserService(DatabaseContext databaseContext)
         {
             _context = databaseContext;
         }
 
         /// <inheritdoc/>
-        public async Task<bool> ValidUser(string login, string password)
+        public async Task<bool> ValidateUser(string login, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Login == login);
             var result = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
 
-            if (result == PasswordVerificationResult.Success)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return result == PasswordVerificationResult.Success;
         }
 
         /// <inheritdoc/>

@@ -8,6 +8,11 @@ namespace StudyProject.Identity.Domain.Models
     /// </summary>
     public class LoginModel
     {
+        /// <summary />
+        public LoginModel()
+        {
+        }
+        
         /// <summary>
         /// Логин пользователя
         /// </summary>

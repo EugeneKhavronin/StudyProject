@@ -2,8 +2,16 @@ using System;
 
 namespace StudyProject.Todo.Domain.Models
 {
+    /// <summary>
+    /// Модель создания задачи
+    /// </summary>
     public class TodoCreateModel
     {
+        /// <summary />
+        public TodoCreateModel()
+        {
+        }
+
         /// <summary>
         /// Уникальный идентификатор
         /// </summary>
@@ -18,6 +26,5 @@ namespace StudyProject.Todo.Domain.Models
         /// Статус
         /// </summary>
         public bool IsComplete { get; set; }
-
     }
 }

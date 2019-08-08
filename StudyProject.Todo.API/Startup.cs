@@ -26,7 +26,7 @@ namespace StudyProject.Todo.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary/>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
@@ -43,18 +43,18 @@ namespace StudyProject.Todo.API
                     ValidAudience = "http://localhost:5002"
                 };
             });
-            
+
             services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly("StudyProject.Todo.API")));
-            
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"});
+                c.SwaggerDoc("v1", new Info {Title = "Todo API", Version = "v1"});
                 c.AddSecurityDefinition("Bearer", new ApiKeyScheme
                 {
                     In = "header",
-                    Description = "Please insert JWT with Bearer into field",
+                    Description = "Введите токен и Bearer в поле",
                     Name = "Authorization",
                     Type = "apiKey"
                 });
@@ -64,7 +64,7 @@ namespace StudyProject.Todo.API
                     {"Bearer", new string[] { }}
                 });
             });
-            
+
             services.AddAutoMapper(config =>
                 Mapper.Initialize(b => { b.AddProfile(typeof(MappingProfile)); }));
 
@@ -73,7 +73,7 @@ namespace StudyProject.Todo.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary/>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -82,7 +82,6 @@ namespace StudyProject.Todo.API
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

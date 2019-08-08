@@ -6,12 +6,17 @@ namespace StudyProject.Todo.Database
 {
     public class DatabaseContext : DbContext
     {
+        /// <summary />
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
         }
 
         public DbSet<TodoItem> TodoItems { get; set; }
 
+        /// <summary>
+        /// Заполнение базы задачами
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TodoItem>().HasData(

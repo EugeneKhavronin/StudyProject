@@ -13,12 +13,12 @@ namespace StudyProject.Identity.API.Controllers
     [ApiController]
     public class UserController : Controller
     {
-        private readonly IUserManagementService _userManagementService;
+        private readonly IUserService _userService;
 
         /// <summary/>
-        public UserController(IUserManagementService userManagementService)
+        public UserController(IUserService userService)
         {
-            _userManagementService = userManagementService;
+            _userService = userService;
         }
 
         /// <summary>
@@ -28,9 +28,9 @@ namespace StudyProject.Identity.API.Controllers
         /// <returns></returns>
         [Route("Register")]
         [HttpPost]
-        public async Task<Guid> Registration(RegistrationModel model)
+        public async Task<Guid> Registration([FromBody] RegistrationModel model)
         {
-            return await _userManagementService.Registration(model);
+            return await _userService.Registration(model);
         }
     }
 }
